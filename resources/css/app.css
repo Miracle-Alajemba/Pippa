@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+/* Tell Tailwind where to scan */
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+/* Define theme tokens the v4 way */
+@theme {
+    --font-hanken-grotesk: "Hanken Grotesk", sans-serif;
+    --text-2xs: 0.625rem; /* 10px */
+}
