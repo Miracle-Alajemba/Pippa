@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreJobRequest;
+use
+use Illuminate\Http\Request;
 use App\Http\Requests\UpdateJobRequest;
 use App\Models\Job;
 use App\Models\Tag;
@@ -14,13 +16,7 @@ class JobController extends Controller
    */
   public function index()
   {
-    // $jobs = Job::latest()->get(); // or ->with('tags', 'employer')->get();
-    // // $tags = Tag::all();
 
-    // return view('Jobs.index', [
-    //     'jobs' => $jobs,
-    //     'tags' => $tags,
-    // ]);
     $jobs = Job::all()->groupBy('featured');
 
     return view('Jobs.index', [
@@ -41,10 +37,27 @@ class JobController extends Controller
   /**
    * Store a newly created resource in storage.
    */
-  public function store(StoreJobRequest $request)
+  public function store(Request $request)
   {
-    //
-  }
+    //validate
+    $attributes = $request->validate([
+      'title' => ['required'],
+      'salary' => ['required'],
+      'location' => ['required'],
+      'schedule' => ['required', Rule::in(['Part Time','Full Time'])],
+      'url' => ['required','active_url'],
+      'tags' => ['nullable'],
+    ]);
+
+    $attributes['featured'] = $request->has('featured');
+
+    Auth::user()->employer->jobs()->create([Arr::except($attributes, 'tags')]);
+
+    if($attributes['tags'] ?? false){
+      foreach(explode(',', $attributes['tags']) as $tag){
+        $job->tag($tag);
+      }}
+    }
 
   /**
    * Display the specified resource.
