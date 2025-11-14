@@ -1,30 +1,18 @@
-{{-- @props(['label', 'name', 'type' => 'text', 'value' => '']) --}}
-@props(['label', 'name'])
+@props(['label', 'name', 'type' => 'text', 'placeholder' => ''])
 
-
-{{--
 @php
     $defaults = [
-        'name' => $name,
-        'id' => $name,
         'type' => $type,
-        'value' => old($name),
-        'class' => 'w-full rounded-md border-white-300 focus:border-indigo-500 focus:ring-indigo-500',
-    ];
-@endphp  or this one below --}}
-
-@props(['label', 'name'])
-
-@php
-    $defaults = [
-        'type' => 'text',
         'id' => $name,
         'name' => $name,
-        'class' => 'rounded-xl bg-white/10 border border-white/10 px-5 py-4 w-full',
+        'placeholder' => $placeholder,
         'value' => old($name),
+        'class' => 'w-full rounded-lg bg-white/10 border border-white/10 px-4 py-4 text-sm text-white
+                    placeholder-white/50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500
+                    transition-all outline-none',
     ];
 @endphp
 
 <x-forms.field :$label :$name>
-    <input {{ $attributes($defaults) }}>
+    <input {{ $attributes->merge($defaults) }}>
 </x-forms.field>
