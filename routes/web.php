@@ -33,7 +33,8 @@ Route::get('/tags/{tag:name}', TagController::class); // Filter jobs by tag name
 Route::middleware('guest')->group(function () {
   Route::get('/register', [RegisteredUserController::class, 'create']); // Show registration form
   Route::post('/register', [RegisteredUserController::class, 'store']);  // Handle registration
-  Route::get('/login', [SessionController::class, 'create']);            // Show login form
+  Route::get('/login', [SessionController::class, 'create'])->name('login');
+  // Show login form
   Route::post('/login', [SessionController::class, 'store']);            // Handle login
 });
 

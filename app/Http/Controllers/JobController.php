@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreJobRequest;
-use
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateJobRequest;
 use App\Models\Job;
 use App\Models\Tag;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class JobController extends Controller
 {
@@ -16,12 +17,13 @@ class JobController extends Controller
    */
   public function index()
   {
-
-    $jobs = Job::all()->groupBy('featured');
+    // will add latest to it to make the latest one to come to the top
+    //we use thw width method to echo load any relation we enquire
+    $jobs = Job::latest()->width(['employer', 'tags'])->groupBy('featured');
 
     return view('Jobs.index', [
-      'featuredJobs' => $jobs[0],
-      'jobs' => $jobs[1],
+      'jobs' => $jobs[0],
+      'featuredJobs' => $jobs[1],
       'tags' => Tag::all(),
     ]);
   }
@@ -44,20 +46,22 @@ class JobController extends Controller
       'title' => ['required'],
       'salary' => ['required'],
       'location' => ['required'],
-      'schedule' => ['required', Rule::in(['Part Time','Full Time'])],
-      'url' => ['required','active_url'],
+      'schedule' => ['required', Rule::in(['Part Time', 'Full Time'])],
+      'url' => ['required', 'active_url'],
       'tags' => ['nullable'],
     ]);
 
     $attributes['featured'] = $request->has('featured');
 
-    Auth::user()->employer->jobs()->create([Arr::except($attributes, 'tags')]);
+    $job = Auth::user()->employer->jobs()->create(Arr::except($attributes, 'tags'));
 
-    if($attributes['tags'] ?? false){
-      foreach(explode(',', $attributes['tags']) as $tag){
+    if ($attributes['tags'] ?? false) {
+      foreach (explode(',', $attributes['tags']) as $tag) {
         $job->tag($tag);
-      }}
+      }
     }
+    return redirect('/');
+  }
 
   /**
    * Display the specified resource.
