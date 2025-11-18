@@ -15,18 +15,28 @@ class JobController extends Controller
   /**
    * Display a listing of the resource.
    */
+
   public function index()
   {
-    // will add latest to it to make the latest one to come to the top
-    //we use thw width method to echo load any relation we enquire
-    $jobs = Job::latest()->width(['employer', 'tags'])->groupBy('featured');
+    // Featured jobs
+    $featuredJobs = Job::latest()
+      ->with(['employer', 'tags'])
+      ->where('featured', 1)
+      ->get();
+
+    // Regular jobs
+    $jobs = Job::latest()
+      ->with(['employer', 'tags'])
+      ->where('featured', 0)
+      ->get();
 
     return view('Jobs.index', [
-      'jobs' => $jobs[0],
-      'featuredJobs' => $jobs[1],
+      'jobs' => $jobs,
+      'featuredJobs' => $featuredJobs,
       'tags' => Tag::all(),
     ]);
   }
+
   /**
    * Show the form for creating a new resource.
    */

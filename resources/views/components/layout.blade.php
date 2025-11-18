@@ -32,10 +32,16 @@
 
       <!-- CTA Button (desktop only) -->
       @auth
-        <div class="hidden md:block">
+        <div class="hidden md:block space-x-6 flex font-bold">
           <a href="/jobs/create" class="rounded-lg bg-white/10 px-4 py-2 transition-colors hover:bg-white/25">Post
             a Job</a>
         </div>
+        <form method="POST" action="/logout">
+          @csrf
+          @method('DELETE')
+          <button>Log out</button>
+        </form>
+
       @endauth
 
       @guest

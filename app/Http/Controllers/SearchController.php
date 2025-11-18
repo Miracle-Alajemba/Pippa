@@ -13,7 +13,7 @@ class SearchController extends Controller
   {
     // throw new \Exception('Not implemented');
     // $search = request("");
-    $jobs = Job::query()->width(['employer', 'tags'])->where('title', 'LIKE', '%' . request('q') . '%')->get();
+    $jobs = Job::query()->with(['employer', 'tags'])->where('title', 'LIKE', '%' . request('q') . '%')->get();
 
     // this place it return the view and the data you keyed in
     return  view('Jobs.results', ['jobs' => $jobs]);
