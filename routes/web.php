@@ -16,7 +16,7 @@ Route::get('/', [JobController::class, 'index'])->name('jobs.index'); // Show al
 
 Route::get('/jobs/create', [JobController::class, 'create'])->middleware('auth'); // Show job creation form
 Route::post('/jobs', [JobController::class, 'store'])->middleware('auth'); // Handle new job submission
-
+Route::get('/jobs/{job}', [JobController::class, 'show']);
 /*
 |--------------------------------------------------------------------------
 | Search & Tag Routes
@@ -44,3 +44,16 @@ Route::middleware('guest')->group(function () {
 |--------------------------------------------------------------------------
 */
 Route::delete('/logout', [SessionController::class, 'destroy'])->middleware('auth'); // Handle logout
+
+/*
+|--------------------------------------------------------------------------
+| Link for  Other link in the navbar--------------------------------------------------------------------------
+*/
+
+Route::get('about', function () {
+  return view('Jobs/about');
+})->name('about');
+
+Route::get('jobs', function () {
+  return view('Jobs/jobs');
+})->name('jobs');

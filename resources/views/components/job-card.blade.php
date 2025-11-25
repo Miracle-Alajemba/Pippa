@@ -2,8 +2,8 @@
 
 
 <x-panel class="flex flex-col text-center">
-  <div class="self-start text-sm">{{ $job->employer->name }}</div>
-
+  <div class="self-start text-sm">{{ $job->employer->name }} </div>
+  <p class="text-gray-400 text-sm">Posted: {{ $job->created_at->diffForHumans() }}</p>
   <div class="py-8">
     <h3 class="text-xl transition-colors duration-300 group-hover:text-blue-600">
       <a href="{{ $job->url }}" target="_blank">

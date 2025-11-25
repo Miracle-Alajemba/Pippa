@@ -16,11 +16,33 @@ class TagFactory extends Factory
    */
   public function definition(): array
   {
+    $tags = [
+      'Technology',
+      'Business',
+      'Finance',
+      'Design',
+      'Education',
+      'Marketing',
+      'Events',
+      'Startup',
+      'Productivity',
+      'Health',
+      'AI',
+      'Web Development',
+      'React',
+      'Laravel',
+      'PHP',
+      'Community',
+      'Career',
+      'Innovation',
+      'Creative',
+      'Conference'
+    ];
+    //
+
+
     return [
-      //
-
-
-      'name' => fake()->unique()->word,
+      'name' => fake()->unique()->randomElement($tags),
     ];
   }
 }

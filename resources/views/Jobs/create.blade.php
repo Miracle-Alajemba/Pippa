@@ -28,7 +28,7 @@
 
     <x-forms.input label="URL" name="url" placeholder="https://acme/jobs/ceo-wanted" />
 
-    {{-- <x-forms.checkbox label="Feature(Costs Extra)" name="featured" /> --}}
+    <x-forms.checkbox label="Feature(Costs Extra)" name="featured" />
 
     <x-forms.divider />
 
