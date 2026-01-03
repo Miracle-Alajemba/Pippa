@@ -47,16 +47,3 @@ class RegisteredUserController extends Controller
     return redirect('/'); // or wherever you want to send the user after registration
   }
 }
-
-
-// remove all the decription there and update it with this description
-// Basic ICT Training
-// Web Programming
-// CyberSecurity
-// Data Analysis
-// Prep Classes (SAT, IELTS, JAMB, JUPEB, WAEC, PUTME)
-// We sell computer accessories (mouse, keyboard, laptop, etc.)
-// Bottom section (contact info): In bold white text, add:
-// For more details call:
-// (+2348034628203)
-// (+2348023984267)
